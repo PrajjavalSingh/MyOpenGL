@@ -18,15 +18,6 @@ float vertices[]
      0.0f,  0.5f, 0.0
 };
 
-//GLSL Vertex Shader
-//const char* vShaderSource =
-//"#version 330 core\n"
-//"layout (Location=0) in vec3 aPos;\n"
-//"void main()\n"
-//"{\n"
-//"gl_Position = vec4( aPos.x, aPos.y, aPos.z, 1.0 );\n"
-//"}\0";
-
 const char* vShaderSource =
 "#version 330 core\n"
 "layout (Location=0) in vec3 aPos;\n"
