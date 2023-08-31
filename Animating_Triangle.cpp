@@ -13,9 +13,9 @@ using namespace std;
 
 float vertices[]
 {
-    -0.5f, -0.5f, 0.0,
-     0.5f, -0.5f, 0.0,
-     0.0f,  0.5f, 0.0
+     0.1f,  0.5f, 0.0,
+    -0.1f,  0.5f, 0.0,
+     0.0f,  -0.5f, 0.0
 };
 
 const char* vShaderSource =
@@ -45,6 +45,8 @@ void framebuffer_size_callback( GLFWwindow* win, int w, int h )
 
 float mag_ = 0.001f;
 float color_[3] = { 0.1f, 0.1f, 0.1f };
+bool shiftpressed_ = false;
+
 void processInput( GLFWwindow* win )
 {
     if ( glfwGetKey(win,GLFW_KEY_ESCAPE) == GLFW_PRESS )
@@ -59,25 +61,44 @@ void processInput( GLFWwindow* win )
     }
     else if ( glfwGetKey(win,GLFW_KEY_R) == GLFW_PRESS )
     {
-	if ( color_[0] >= 1.0f )
-	    return;
+	if ( shiftpressed_ )
+	    color_[0] -= 0.1f;
+	else
+	    color_[0] += 0.1f;
 
-	color_[0] += 0.0001f;
+	if ( color_[0] >= 1.0f )
+	    color_[0] = 1.0f;
+	else if ( color_[0] <= 0.0f )
+	    color_[0] = 0.0f;
     }
     else if ( glfwGetKey(win,GLFW_KEY_G) == GLFW_PRESS )
     {
+	if ( shiftpressed_ )
+	    color_[1] -= 0.1f;
+	else
+	    color_[1] += 0.1f;
+
 	if ( color_[1] >= 1.0f )
-	    return;
-
-	color_[1] += 0.0001f;
+	    color_[1] = 1.0f;
+	else if ( color_[1] <= 0.0f )
+	    color_[1] = 0.0f;
     }
-    else if ( glfwGetKey(win,GLFW_KEY_R) == GLFW_PRESS )
+    else if ( glfwGetKey(win,GLFW_KEY_B) == GLFW_PRESS )
     {
-	if ( color_[2] >= 1.0f )
-	    return;
+	if ( shiftpressed_ )
+	    color_[2] -= 0.1f;
+	else
+	    color_[2] += 0.1f;
 
-	color_[2] += 0.0001f;
+	if ( color_[2] >= 1.0f )
+	    color_[2] = 1.0f;
+	else if ( color_[2] <= 0.0f )
+	    color_[2] = 0.0f;
     }
+    else if ( glfwGetKey(win,GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS )
+	shiftpressed_ = true;
+    else if ( glfwGetKey(win,GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE )
+	shiftpressed_ = false;
 }
 
 int main()
